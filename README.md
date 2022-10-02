@@ -1,5 +1,6 @@
-# gcpregionalquota
-List Regional Quotas to identify quota difference between regions
+# GCP Reqional Quota compare
+
+Small CLI utility to compare quotas between two GCP regions within a project. 
 
 ## Build
 

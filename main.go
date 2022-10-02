@@ -58,6 +58,7 @@ func main() {
 		fmt.Printf("Error getting services in: %s : %e", projectName, err)
 	}
 
+	// Itirate through ServiceList and call GetService for individual services
 	for i := 0; i < len(serviceList); i++ {
 		GetService(serviceList[i], sourceRegion, targetRegion)
 	}
@@ -84,22 +85,24 @@ func GetService(serviceName string, region string, targetregion string) (err err
 		sourceregionquota := ql.Values["DEFAULT/"+region]
 		targetregionquota := ql.Values["DEFAULT/"+targetregion]
 
+		// There is a source region specific quota and it's not equal to target region quota
 		if sourceregionquota != 0 && sourceregionquota != targetregionquota {
 			fmt.Printf("Service Name: %v\n", service.Config.Name)
 			fmt.Printf("Service Title: %v\n", service.Config.Title)
 			fmt.Printf("Quota Name: %s\n", ql.Name)
 			fmt.Printf("Quota Description: %s\n", ql.DisplayName)
 			fmt.Printf("Region %s Quota: %v\n", region, sourceregionquota)
-			fmt.Printf("Region %s Quota: %v\n", targetregion, targetregionquota)
+			fmt.Printf("Region %s Quota: %v\n\n", targetregion, targetregionquota)
 		}
 
+		// There is a targetregionquota, which is not same with source region and also not same as default regional value
 		if targetregionquota != 0 && sourceregionquota != targetregionquota && targetregionquota != ql.Values["DEFAULT"] {
 			fmt.Printf("Service Name: %v\n", service.Config.Name)
 			fmt.Printf("Service Title: %v\n", service.Config.Title)
 			fmt.Printf("Quota Name: %s\n", ql.Name)
 			fmt.Printf("Quota Description: %s\n", ql.DisplayName)
 			fmt.Printf("Region %s Quota: %v\n", region, ql.Values["DEFAULT"])
-			fmt.Printf("Region %s Quota: %v\n", targetregion, targetregionquota)
+			fmt.Printf("Region %s Quota: %v\n\n", targetregion, targetregionquota)
 		}
 
 	}
@@ -107,6 +110,7 @@ func GetService(serviceName string, region string, targetregion string) (err err
 	return nil
 }
 
+// ListServices - Lists all the services within a project and returns a string array
 func ListServices(projectName string) (enabledServices []string, e error) {
 	ctx := context.Background()
 	c, err := serviceusage.NewClient(ctx)
