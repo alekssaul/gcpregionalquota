@@ -1,6 +1,19 @@
 # gcpregionalquota
 List Regional Quotas to identify quota difference between regions
 
+## Build
+
+Make sure you have a recent version of Golang installed 
+
+```sh
+git clone https://github.com/alekssaul/gcpregionalquota.git
+cd gcpregionalquota
+go build . 
+```
+
+
+## Run
+
 ```
 NAME:
    GCP Regional Quota lookup -  

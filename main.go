@@ -83,19 +83,23 @@ func GetService(serviceName string, region string, targetregion string) (err err
 		ql := service.Config.Quota.Limits[i]
 		sourceregionquota := ql.Values["DEFAULT/"+region]
 		targetregionquota := ql.Values["DEFAULT/"+targetregion]
-		if sourceregionquota == 0 {
-			return
 
-		}
-
-		if sourceregionquota != targetregionquota {
+		if sourceregionquota != 0 && sourceregionquota != targetregionquota {
 			fmt.Printf("Service Name: %v\n", service.Config.Name)
 			fmt.Printf("Service Title: %v\n", service.Config.Title)
 			fmt.Printf("Quota Name: %s\n", ql.Name)
 			fmt.Printf("Quota Description: %s\n", ql.DisplayName)
-			fmt.Printf("Quota Description: %s\n", ql.Description)
-			fmt.Printf("Region %s Quota: %v\n", region, ql.Values["DEFAULT/"+region])
-			fmt.Printf("Region %s Quota: %v\n", targetregion, ql.Values["DEFAULT/"+targetregion])
+			fmt.Printf("Region %s Quota: %v\n", region, sourceregionquota)
+			fmt.Printf("Region %s Quota: %v\n", targetregion, targetregionquota)
+		}
+
+		if targetregionquota != 0 && sourceregionquota != targetregionquota && targetregionquota != ql.Values["DEFAULT"] {
+			fmt.Printf("Service Name: %v\n", service.Config.Name)
+			fmt.Printf("Service Title: %v\n", service.Config.Title)
+			fmt.Printf("Quota Name: %s\n", ql.Name)
+			fmt.Printf("Quota Description: %s\n", ql.DisplayName)
+			fmt.Printf("Region %s Quota: %v\n", region, ql.Values["DEFAULT"])
+			fmt.Printf("Region %s Quota: %v\n", targetregion, targetregionquota)
 		}
 
 	}
