@@ -17,10 +17,10 @@ go build .
 
 ```
 NAME:
-   GCP Regional Quota lookup -  
+   GCP Regional Quota lookup -
 
 USAGE:
-   gcpregionalquota --projectid project-123 --sourceregion us-east1 --targetregion us-central1
+   gcpregionalquota --projectid project-123 --sourceregion us-east1 --targetregion us-central1 --token $(gcloud auth print-access-token)
 
 DESCRIPTION:
    Small CLI tool to compare GCP region quotas
@@ -29,8 +29,10 @@ COMMANDS:
    help, h  Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
-   --help, -h            show help (default: false)
-   --projectid value     GCP Project ID (required)
-   --sourceregion value  GCP Source Region (required)
-   --targetregion value  GCP Target Region (required)
+   --help, -h             show help (default: false)
+   --projectid value      GCP Project ID (required)
+   --projectnumber value  GCP Project Number (optional)
+   --sourceregion value   GCP Source Region (required)
+   --targetregion value   GCP Target Region (required)
+   --token value          GCP auth token (required)
 ```
